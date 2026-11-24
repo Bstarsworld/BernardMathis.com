@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import { WORK_ITEMS, PRODUCTION_STILLS, PERSONAL_INFO } from '../data/portfolioData';
+import { WORK_ITEMS, PRODUCTION_STILLS } from '../data/portfolioData';
 import { WorkItem, ProductionStill } from '../types';
 import { ColorGradeComparator } from './ColorGradeComparator';
 import { 
   Play, 
-  Sparkles, 
-  Layers, 
   Film, 
-  Palette, 
   ExternalLink, 
   Camera, 
   Maximize2,
-  Info,
-  CheckCircle2,
   Tv,
   Mic2,
-  Video,
+  Sparkles,
+  AlertCircle,
   X
 } from 'lucide-react';
 
@@ -33,7 +29,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
 
   const sourTruth = WORK_ITEMS.find((w) => w.id === 'sour-truth-podcast');
   const scienceViolet = WORK_ITEMS.find((w) => w.id === 'science-with-violet');
-  const losPilot = WORK_ITEMS.find((w) => w.id === 'los-tv-pilot');
+  const surviveInLAPilot = WORK_ITEMS.find((w) => w.id === 'how-to-survive-in-la') || WORK_ITEMS.find((w) => w.id === 'los-tv-pilot');
 
   return (
     <section id="work" className="relative py-24 border-t border-white/5">
@@ -44,13 +40,13 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider">
               <Film className="w-4 h-4" />
-              <span>Directing, Cinematography & Editorial</span>
+              <span>Production Work &amp; Original Projects</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-              Filmmaking & Production Reel
+              Filmmaking &amp; Video Work
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-normal max-w-2xl">
-              From original narrative series and music videos to live multicam artist interview podcasts and educational content — directed, filmed on Panasonic GH6 (V-Log 4K / ProRes RAW), and cut with broadcast pacing in DaVinci Resolve.
+            <p className="text-slate-300 text-sm sm:text-base font-normal max-w-2xl">
+              Original projects, music videos, interview podcasts, and educational series. Shot primarily on Panasonic GH6 (V-Log 4K / ProRes RAW) and edited in DaVinci Resolve Studio.
             </p>
           </div>
 
@@ -78,7 +74,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                   : 'text-slate-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              Podcasts & Series
+              Podcasts &amp; Series
             </button>
             <button
               type="button"
@@ -102,7 +98,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                   : 'text-slate-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              Explainers & Talks
+              Explainers &amp; Skits
             </button>
             <button
               type="button"
@@ -114,17 +110,17 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                   : 'text-slate-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              Color Science & Post
+              Color &amp; Demos
             </button>
           </div>
         </div>
 
-        {/* Highlight Showcase: Original Shows & Series */}
+        {/* Verified Original Projects Showcase */}
         {(activeFilter === 'all' || activeFilter === 'podcasts-series') && (
           <div className="space-y-6">
             <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider flex items-center gap-2">
               <Sparkles className="w-4 h-4" />
-              <span>Original Series & Pilots in Development</span>
+              <span>Verified Original Projects</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -135,7 +131,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
-                        Interview Podcast
+                        Interview Podcast (Verified)
                       </span>
                       <Mic2 className="w-4 h-4 text-cyan-400" />
                     </div>
@@ -143,10 +139,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                       The Sour Truth
                     </h3>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      An in-depth interview podcast where Bstar sits down with independent music artists to dissect their creative processes, independent hustle, and real-world music industry insights.
+                      An interview podcast where I interview independent music artists and push for honest, sometimes uncomfortable answers.
                     </p>
                     <div className="pt-1 text-[11px] font-mono text-cyan-300">
-                      Workflow: ATEM Mini live multicam switching, GH6 cameras, and dialogue pacing in DaVinci Resolve.
+                      Primary Tools: Panasonic GH6, DaVinci Resolve Studio.
                     </div>
                   </div>
 
@@ -174,7 +170,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-300 border border-teal-500/20">
-                        Kids Educational Series
+                        Kids' Science Series (Verified)
                       </span>
                       <Sparkles className="w-4 h-4 text-teal-400" />
                     </div>
@@ -182,10 +178,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                       Science with Violet
                     </h3>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      A vibrant, educational kids' science series featuring Bstar's daughter Violet. Combining hands-on experiments, family-friendly humor, and colorful visual animations.
+                      Kids' science series featuring my daughter Violet, exploring hands-on science concepts and real-world experiments.
                     </p>
                     <div className="pt-1 text-[11px] font-mono text-teal-300">
-                      Workflow: Shot on Panasonic GH6, animated in DaVinci Fusion, mixed for high vocal clarity.
+                      Primary Tools: Panasonic GH6, DaVinci Resolve Studio.
                     </div>
                   </div>
 
@@ -207,34 +203,34 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                 </div>
               )}
 
-              {/* 3. LO'S Pilot */}
-              {losPilot && (
+              {/* 3. "How To Survive in LA" Pilot */}
+              {surviveInLAPilot && (
                 <div className="rounded-3xl bg-slate-900/80 border border-indigo-500/30 p-6 flex flex-col justify-between space-y-4 hover:border-indigo-400/60 transition-all shadow-xl">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
-                        Original TV Pilot
+                        TV Pilot in Development (Verified)
                       </span>
                       <Tv className="w-4 h-4 text-indigo-400" />
                     </div>
                     <h3 className="text-xl font-display font-bold text-white">
-                      "LO'S" (In Development)
+                      "How To Survive in LA"
                     </h3>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      An original narrative television drama series in active development. Explores authentic urban character arcs, tension, and cinematic visual language.
+                      An original narrative television pilot currently in active development by Bernard Mathis (Bstar).
                     </p>
                     <div className="pt-1 text-[11px] font-mono text-indigo-300">
-                      Workflow: Narrative script development, GH6 V-Log exposure tests, and cinematic color look-books.
+                      Status: Active development &amp; visual look-book testing.
                     </div>
                   </div>
 
                   <div 
-                    onClick={() => onPlayVideo(losPilot)}
+                    onClick={() => onPlayVideo(surviveInLAPilot)}
                     className="relative aspect-video rounded-xl overflow-hidden bg-black cursor-pointer group"
                   >
                     <img
-                      src={losPilot.thumbnailUrl}
-                      alt={losPilot.title}
+                      src={surviveInLAPilot.thumbnailUrl}
+                      alt={surviveInLAPilot.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
@@ -250,16 +246,21 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
           </div>
         )}
 
-        {/* Video Grid for Active Filter */}
+        {/* Video Grid with Strict Verification Tagging */}
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-wide">
-              {activeFilter === 'all' && "All Productions"}
-              {activeFilter === 'music-videos' && "Music Videos & Visualizers"}
-              {activeFilter === 'podcasts-series' && "Podcasts & Original Series"}
-              {activeFilter === 'explainers-shorts' && "Explainers, Masterclasses & Skits"}
-              {activeFilter === 'color-post' && "Color Science & Post-Production"}
-            </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-wide">
+                {activeFilter === 'all' && "All Project Entries"}
+                {activeFilter === 'music-videos' && "Music Videos"}
+                {activeFilter === 'podcasts-series' && "Podcasts & Original Series"}
+                {activeFilter === 'explainers-shorts' && "Explainers & Demos"}
+                {activeFilter === 'color-post' && "Color Science & Pipeline Tests"}
+              </h3>
+              <p className="text-xs font-mono text-slate-400 mt-1">
+                Music videos, interview series, explainers, and post-production demos.
+              </p>
+            </div>
             <span className="text-xs font-mono text-slate-400">
               Showing {filteredItems.length} videos
             </span>
@@ -341,7 +342,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
                         rel="noreferrer"
                         className="text-slate-400 hover:text-white flex items-center gap-1 transition-colors"
                       >
-                        <span>YT</span>
+                        <span>YouTube</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -358,16 +359,16 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onPlayVideo }) => {
           <ColorGradeComparator />
         </div>
 
-        {/* Production Stills & Field Rigging */}
+        {/* Production Stills Notice */}
         <div className="space-y-6 pt-10 border-t border-white/10">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <div className="flex items-center gap-2 text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider mb-1">
                 <Camera className="w-4 h-4" />
-                <span>On Set & Rigging</span>
+                <span>On Set Photos</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">
-                Production Stills & Field Rigging
+                Production Stills
               </h3>
             </div>
             <span className="text-xs font-mono text-slate-400 hidden sm:inline-block">

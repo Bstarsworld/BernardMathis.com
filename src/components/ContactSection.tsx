@@ -3,45 +3,20 @@ import { PERSONAL_INFO } from '../data/portfolioData';
 import { 
   Mail, 
   Phone, 
-  Send, 
   Copy, 
   Check, 
   ExternalLink, 
-  Sparkles, 
-  MessageSquare,
-  Clock,
-  MapPin,
-  ShieldCheck,
+  ShieldCheck, 
   Server,
-  Terminal
+  Terminal,
+  Send
 } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      const subject = encodeURIComponent(`Production & Project Inquiry: ${formData.name}`);
-      const body = encodeURIComponent(
-        `Hi Bstar,\n\nMy name is ${formData.name} (${formData.email}).\n\n${formData.message}\n\nSent from your portfolio website.`
-      );
-      window.open(`mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`, '_blank');
-    }, 500);
-  };
+  const [inquiryType, setInquiryType] = useState('Film / Video Project');
+  const [clientNote, setClientNote] = useState('');
 
   const handleCopyPhone = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.phone);
@@ -55,6 +30,10 @@ export const ContactSection: React.FC = () => {
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
+  const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(`Project Inquiry: ${inquiryType}`)}&body=${encodeURIComponent(
+    `Hi Bernard,\n\nI am contacting you regarding a ${inquiryType}.\n\nDetails:\n${clientNote || '[Describe project, schedule, or workflow needs here]'}\n\nBest regards,\n[Your Name]`
+  )}`;
+
   return (
     <section id="contact" className="relative py-24 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,33 +42,29 @@ export const ContactSection: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
           <div className="inline-flex items-center gap-2 text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/20">
             <Mail className="w-4 h-4" />
-            <span>Direct Inquiries &amp; Booking</span>
+            <span>Direct Inquiries</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
             Connect with Bernard Mathis (Bstar)
           </h2>
           <p className="text-slate-300 text-base">
-            Reach out for multi-camera production, 16-channel live sound venue mixing, virtual production sets, or precision color grading and post-production.
+            Reach out for video production, camera work on Panasonic GH6, DaVinci Resolve editing and color grading, or music collaboration.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Left Column: Direct Contact Info & Trademark Verification */}
+          {/* Left Column: Direct Contact Info */}
           <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-slate-900/70 border border-white/10 backdrop-blur-xl shadow-2xl space-y-8">
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-wide">
-                  Let's Make Something Great
+                  Contact Information
                 </h3>
                 <p className="text-xs font-mono text-cyan-400 mt-1">
                   {PERSONAL_INFO.company} &bull; {PERSONAL_INFO.brand}
                 </p>
               </div>
-
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Available for camera systems (Blackmagic, RED, ARRI, Sony, Panasonic), 16-channel live concert &amp; venue mixing, Unreal Engine virtual production, ATEM Mini live chroma keying, and full-spectrum color grading.
-              </p>
 
               {/* Direct Info Cards */}
               <div className="space-y-4 pt-1">
@@ -102,7 +77,7 @@ export const ContactSection: React.FC = () => {
                       </div>
                       <div>
                         <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
-                          PRIMARY INBOX
+                          PRIMARY EMAIL
                         </div>
                         <a 
                           href={`mailto:${PERSONAL_INFO.email}`}
@@ -158,7 +133,7 @@ export const ContactSection: React.FC = () => {
             {/* Entity, Trademark & Web Platforms */}
             <div className="space-y-4 pt-6 border-t border-white/10">
               <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-                Official Entity & Verified Portals
+                Official Entity &amp; Web Infrastructure
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                 <a
@@ -196,107 +171,72 @@ export const ContactSection: React.FC = () => {
 
           </div>
 
-          {/* Right Column: Direct Message Transmission Form */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-slate-900/70 border border-white/10 backdrop-blur-xl shadow-2xl">
-            {isSubmitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
-                  <Check className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-display font-bold text-white">
-                  Transmission Prepared!
+          {/* Right Column: Direct Mailto Action Form (No fake backend - opens email client) */}
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-slate-900/70 border border-white/10 backdrop-blur-xl shadow-2xl flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
+                  Send an Email Message
                 </h3>
-                <p className="text-sm text-slate-300 max-w-md">
-                  Thank you, {formData.name}. Your message has been prepared for Bstar at <span className="text-cyan-400">{PERSONAL_INFO.email}</span>. A mail window has been triggered for direct confirmation.
+                <p className="text-xs text-slate-400 font-mono">
+                  Direct dispatch to {PERSONAL_INFO.email}
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSubmitted(false);
-                    setFormData({ name: '', email: '', message: '' });
-                  }}
-                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-mono text-slate-200 transition-all"
-                >
-                  Send Another Message
-                </button>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-1">
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
-                    Send Direct Message
-                  </h3>
-                  <p className="text-xs text-slate-400 font-mono">
-                    Direct dispatch to Bstar (Bernard Mathis) at {PERSONAL_INFO.email}
-                  </p>
-                </div>
 
-                {/* Your Name */}
-                <div className="space-y-2">
-                  <label htmlFor="contact-name" className="block text-xs font-mono font-medium text-slate-300">
-                    Your Name <span className="text-cyan-400">*</span>
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Producer, Artist or Collaborator"
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/20 text-sm text-white placeholder:text-slate-600 outline-none transition-all"
-                  />
+              {/* Inquiry selector */}
+              <div className="space-y-2">
+                <label className="block text-xs font-mono font-medium text-slate-300">
+                  Select Project Type
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {['Film / Video Project', 'Podcast / Interview', 'Music / Vocal Session', 'DaVinci Resolve Editing', 'Color Grading', 'Custom Tool / LUT'].map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setInquiryType(type)}
+                      className={`p-2.5 rounded-xl text-xs font-mono text-left border transition-all ${
+                        inquiryType === type
+                          ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-bold'
+                          : 'bg-black/30 border-white/10 text-slate-400 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
                 </div>
+              </div>
 
-                {/* Email Address */}
-                <div className="space-y-2">
-                  <label htmlFor="contact-email" className="block text-xs font-mono font-medium text-slate-300">
-                    Email Address <span className="text-cyan-400">*</span>
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="name@production.com"
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/20 text-sm text-white placeholder:text-slate-600 outline-none transition-all"
-                  />
-                </div>
+              {/* Note / Message Draft */}
+              <div className="space-y-2">
+                <label htmlFor="contact-note" className="block text-xs font-mono font-medium text-slate-300">
+                  Project Brief or Note (Optional pre-fill)
+                </label>
+                <textarea
+                  id="contact-note"
+                  rows={4}
+                  value={clientNote}
+                  onChange={(e) => setClientNote(e.target.value)}
+                  placeholder="Outline your timeline, deliverables, or questions here..."
+                  className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/20 text-sm text-white placeholder:text-slate-600 outline-none transition-all resize-none"
+                />
+              </div>
+            </div>
 
-                {/* Message */}
-                <div className="space-y-2">
-                  <label htmlFor="contact-message" className="block text-xs font-mono font-medium text-slate-300">
-                    Message <span className="text-cyan-400">*</span>
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Describe your project, shooting schedule, multicam podcast setup, or post-production tooling needs..."
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/20 text-sm text-white placeholder:text-slate-600 outline-none transition-all resize-none"
-                  />
-                </div>
+            {/* Direct Mailto Action Button */}
+            <div className="space-y-3 pt-4 border-t border-white/10">
+              <a
+                href={mailtoUrl}
+                id="contact-mailto-btn"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold text-sm tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 group text-center"
+              >
+                <span>Compose Direct Email ({inquiryType})</span>
+                <Send className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </a>
 
-                {/* Submit button */}
-                <button
-                  type="submit"
-                  id="contact-submit-btn"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold text-sm tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 transition-all flex items-center justify-center gap-2"
-                >
-                  {isSubmitting ? (
-                    <span className="font-mono text-xs">Transmitting...</span>
-                  ) : (
-                    <>
-                      <span>Send Direct Transmission</span>
-                      <Send className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+              <p className="text-[11px] font-mono text-slate-500 text-center">
+                This triggers your default email client to compose directly to {PERSONAL_INFO.email}.
+              </p>
+            </div>
           </div>
 
         </div>
@@ -307,7 +247,7 @@ export const ContactSection: React.FC = () => {
             &copy; {new Date().getFullYear()} Intrepid Media Giant, LLC &bull; All Rights Reserved
           </div>
           <div className="flex items-center gap-3 text-slate-400">
-            <span>Filmmaker & Systems Engineer</span>
+            <span>{PERSONAL_INFO.headline}</span>
             <span>&bull;</span>
             <a href={PERSONAL_INFO.domains.cloud} target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">
               intrepidcloud.net

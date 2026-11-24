@@ -11,6 +11,7 @@ export interface WorkItem {
   software: string[];
   thumbnailUrl: string;
   featured?: boolean;
+  roleConfirmation?: string;
 }
 
 export interface ProductionStill {
@@ -30,13 +31,12 @@ export interface ServiceCapability {
   badge: string;
 }
 
-export interface CustomSystemPlugin {
+export interface BuiltTool {
   id: string;
   name: string;
-  type: 'Workflow Tool' | 'Resolve Plugin' | 'Multicam Sync';
-  headline: string;
+  type: string;
   description: string;
-  features: string[];
+  specs: string[];
   badge?: string;
 }
 
@@ -45,10 +45,11 @@ export interface ExperienceItem {
   title: string;
   facility: string;
   period?: string;
-  category: 'Production & Directing' | 'Audio & Sound' | 'Post-Production' | 'Education & Rigor' | 'Virtual Production' | 'Live AV & Sound';
+  category: string;
   description: string[];
   tools: string[];
   photoUrl?: string;
+  isPlaceholder?: boolean;
 }
 
 export interface CameraGear {
@@ -57,14 +58,7 @@ export interface CameraGear {
   specs: string;
   useCase: string;
   format: string;
-}
-
-export interface CameraCertification {
-  name: string;
-  brand: string;
-  level: string;
-  rawFormats: string[];
-  note: string;
+  isPlaceholder?: boolean;
 }
 
 export interface AudioGear {
@@ -77,8 +71,7 @@ export interface AudioGear {
 
 export interface SoftwareTool {
   name: string;
-  category: 'Editing & Color' | 'Camera & Rig' | 'Audio & Live' | 'Motion & Delivery' | 'Virtual Production & 3D';
+  category: string;
   role: string;
-  proficiency: number; // 0 - 100
+  status: 'confirmed' | 'unconfirmed';
 }
-

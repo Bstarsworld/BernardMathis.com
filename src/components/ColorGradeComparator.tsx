@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Sliders, Sparkles, Eye, Check, ChevronRight } from 'lucide-react';
+import { Sliders } from 'lucide-react';
 
 interface ColorGradePreset {
   id: string;
@@ -15,33 +15,23 @@ interface ColorGradePreset {
 const PRESETS: ColorGradePreset[] = [
   {
     id: 'gh6-vlog',
-    name: 'Panasonic GH6 — V-Log First-Principles Math',
+    name: 'Panasonic GH6 — V-Log Exposure Calibration',
     camera: 'Panasonic Lumix GH6',
     format: '4K 10-bit 4:2:2 V-Log (Internal)',
-    workflow: 'Custom Clean-Room LUT & DaVinci Resolve YRGB',
-    rawNote: 'Flat V-Log logarithmic curve matching Panasonic sensor code values with mathematical 18% gray at 42 IRE',
-    gradedNote: 'Mastered Rec.709 cinema grade with LensLook optical halation and gentle highlight rolloff',
+    workflow: 'FC_GH6 False-Color LUT & DaVinci Resolve Studio',
+    rawNote: 'V-Log curve verified against Panasonic GH6 manual (18% gray at 42 IRE, 90% white at 61 IRE)',
+    gradedNote: 'Rec.709 deliverable graded in DaVinci Resolve Studio using LensLook plugin',
     image: 'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1200,fit=crop/BOJNKSHI76bv9ceB/img_4244-Wgap7hR064qefeqF.jpg'
   },
   {
     id: 'prores-raw',
-    name: 'Apple ProRes RAW — Commercial & Wedding Grade',
-    camera: 'Panasonic GH6 + Atomos Ninja',
+    name: 'Apple ProRes RAW — Commercial & Wedding',
+    camera: 'Panasonic Lumix GH6',
     format: '12-bit Apple ProRes RAW',
-    workflow: 'DaVinci Resolve Studio + Custom LensLook Plugin',
-    rawNote: 'Wide-gamut linear RAW sensor data allowing precise exposure pull and temperature tuning',
-    gradedNote: 'Commercial film curve with warm organic skin tones, rich shadow density, and anamorphic flare simulation',
+    workflow: 'DaVinci Resolve Studio & LensLook Plugin',
+    rawNote: 'Linear RAW sensor capture for commercial and wedding deliverables requiring extended highlight latitude',
+    gradedNote: 'Final client master graded in DaVinci Resolve Studio with custom LensLook presets',
     image: 'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1200,fit=crop/BOJNKSHI76bv9ceB/img_4238-XaXqsh3AHYWRO2fL.jpg'
-  },
-  {
-    id: 'greenscreen-despill',
-    name: 'Multicam Green Screen — Clean Key & Light Wrap',
-    camera: 'Panasonic GH6 + ATEM Mini',
-    format: '4K V-Log 10-bit & Live Studio Feed',
-    workflow: 'Clean-room Ultimatte Keying & DaVinci Fusion Match',
-    rawNote: 'Raw green bounce and harsh edge bleed on talent prior to optical despill',
-    gradedNote: 'De-spilled subject with simulated ambient environment light wrap matching background plates',
-    image: 'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1200,fit=crop/BOJNKSHI76bv9ceB/img_1482-lElCMLpTViwQGTi9.jpg'
   }
 ];
 
@@ -77,13 +67,13 @@ export const ColorGradeComparator: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider mb-1">
             <Sliders className="w-4 h-4" />
-            <span>Interactive Sensor LOG vs. Mastered Look</span>
+            <span>Interactive Sensor LOG vs. Graded Master</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-wide">
-            First-Principles V-Log & ProRes RAW Pipeline
+            Panasonic GH6 V-Log &amp; ProRes RAW Color Pipeline
           </h3>
           <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
-            Drag the divider to compare the uncorrected Panasonic GH6 V-Log / RAW capture against the final grade shaped with custom clean-room plugins like LensLook.
+            Drag the divider to compare the uncorrected Panasonic GH6 V-Log / RAW capture against the final grade shaped in DaVinci Resolve Studio using custom tools like LensLook.
           </p>
         </div>
 
@@ -123,12 +113,12 @@ export const ColorGradeComparator: React.FC = () => {
         <div className="absolute inset-0 w-full h-full">
           <img
             src={activePreset.image}
-            alt="Mastered Color Grade"
+            alt="Graded Master"
             className="w-full h-full object-cover filter contrast-[1.12] saturate-[1.22] brightness-[1.02]"
             draggable={false}
           />
           <div className="absolute bottom-3 right-4 px-3 py-1 rounded-md bg-black/75 backdrop-blur-md border border-cyan-500/40 text-[11px] font-mono text-cyan-300">
-            Mastered with Custom LensLook
+            Graded with LensLook in Resolve
           </div>
         </div>
 
@@ -149,7 +139,7 @@ export const ColorGradeComparator: React.FC = () => {
             />
           </div>
           <div className="absolute bottom-3 left-4 px-3 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[11px] font-mono text-slate-300">
-            Raw V-Log (42 IRE Middle Gray)
+            V-Log (18% Gray = 42 IRE, 90% White = 61 IRE)
           </div>
         </div>
 
@@ -166,14 +156,14 @@ export const ColorGradeComparator: React.FC = () => {
         {/* Live Scope Ribbon */}
         <div className="absolute top-3 left-3 hidden sm:flex items-center gap-2 px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span>V-LOG CURVE MATH &bull; ZERO PRE-BAKED ARTIFACTS</span>
+          <span>PANASONIC GH6 V-LOG &bull; FC_GH6 EXPOSURE MAPPING</span>
         </div>
       </div>
 
       {/* Preset Details Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/10 text-xs font-mono">
         <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-          <div className="text-slate-400 text-[10px] uppercase">Primary Camera & Sensor</div>
+          <div className="text-slate-400 text-[10px] uppercase">Primary Camera &amp; Sensor</div>
           <div className="text-white font-semibold mt-0.5">{activePreset.camera}</div>
           <div className="text-cyan-400 text-[11px] mt-0.5">{activePreset.format}</div>
         </div>
@@ -181,11 +171,11 @@ export const ColorGradeComparator: React.FC = () => {
         <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
           <div className="text-slate-400 text-[10px] uppercase">Post Pipeline</div>
           <div className="text-white font-semibold mt-0.5">{activePreset.workflow}</div>
-          <div className="text-slate-400 text-[11px] mt-0.5">DaVinci Resolve Studio Clean-Room Tools</div>
+          <div className="text-slate-400 text-[11px] mt-0.5">DaVinci Resolve Studio</div>
         </div>
 
         <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-          <div className="text-slate-400 text-[10px] uppercase">First-Principles Calibration</div>
+          <div className="text-slate-400 text-[10px] uppercase">Calibration &amp; Exposure</div>
           <div className="text-slate-300 text-[11px] mt-0.5">{activePreset.rawNote}</div>
         </div>
       </div>

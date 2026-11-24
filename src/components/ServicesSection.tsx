@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import { SERVICES, PERSONAL_INFO } from '../data/portfolioData';
-import { ServiceCapability } from '../types';
 import { 
   Video, 
   Film, 
   Mic2, 
-  Zap, 
   CheckCircle2, 
-  Sliders, 
-  ArrowRight,
-  Disc,
-  Radio,
-  Camera,
-  Layers,
-  Sparkles,
-  Volume2,
-  Cpu,
-  Tv
+  Disc, 
+  Camera, 
+  Sparkles, 
+  Wrench,
+  ArrowRight
 } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
@@ -25,9 +18,9 @@ export const ServicesSection: React.FC = () => {
   const getServiceIcon = (id: string) => {
     switch (id) {
       case 'camera-cinematography': return Camera;
-      case 'virtual-production': return Cpu;
-      case 'live-sound-mixing': return Sliders;
       case 'post-production-color': return Film;
+      case 'audio-music-production': return Mic2;
+      case 'custom-tools-pipelines': return Wrench;
       default: return Video;
     }
   };
@@ -42,19 +35,15 @@ export const ServicesSection: React.FC = () => {
         <div className="space-y-4 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
             <Video className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Full-Spectrum Production Capabilities</span>
+            <span>Production Capabilities</span>
           </div>
           
           <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
-            Camera. Virtual Sets. Live Sound. Color.
+            Camera. Editing &amp; Color. Music &amp; Audio. Custom Tools.
           </h2>
 
-          <p className="text-base sm:text-lg text-cyan-100 font-medium leading-relaxed italic border-l-2 border-cyan-400 pl-4 py-1">
-            "{PERSONAL_INFO.philosophy}"
-          </p>
-
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-            A comprehensive skill set spanning multi-camera certification (Blackmagic, RED, ARRI, Sony, Panasonic, Fuji, Atomos), concert venue sound engineering on 16-channel consoles, real-time virtual sets in Unreal Engine, and master-level color grading and post-production.
+            Filmmaking, video editing, and recording artist based in the Los Angeles area. Shooting on the Panasonic Lumix GH6 (V-Log 4K / ProRes RAW), cutting and grading in DaVinci Resolve Studio with custom tools I build myself, and tracking vocals through a dedicated chain at Pirate Rehearsal Studios.
           </p>
         </div>
 
@@ -112,7 +101,7 @@ export const ServicesSection: React.FC = () => {
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>{activeService.badge} Spotlight</span>
+                  <span>{activeService.badge} Detail</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display font-bold text-white">
                   {activeService.headline}
@@ -125,7 +114,7 @@ export const ServicesSection: React.FC = () => {
               {/* Bullet Points */}
               <div className="space-y-3 pt-2">
                 <div className="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold">
-                  Key Production Highlights
+                  Verified Technical Specifics
                 </div>
                 <div className="space-y-2.5">
                   {activeService.bullets.map((bullet, idx) => (
@@ -138,7 +127,7 @@ export const ServicesSection: React.FC = () => {
               </div>
 
               {/* Special callout for Audio Tab: Music Release */}
-              {activeService.id === 'audio-mixing' && (
+              {activeService.id === 'audio-music-production' && (
                 <div className="p-4 rounded-2xl bg-cyan-950/30 border border-cyan-500/30 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center flex-shrink-0">
@@ -146,24 +135,16 @@ export const ServicesSection: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold">
-                        Commercial Music Release
+                        Latest Music Release
                       </div>
                       <div className="text-sm font-display font-bold text-white">
-                        "{PERSONAL_INFO.musicRelease.title}" by Bstar &bull; Distributed via CmdShft
+                        "{PERSONAL_INFO.musicRelease.title}" by Bstar &bull; Distributed through CmdShft
                       </div>
                     </div>
                   </div>
                   <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-300 whitespace-nowrap">
-                    Active Artist & Engineer
+                    Silver Lake Sessions
                   </span>
-                </div>
-              )}
-
-              {/* Special callout for Workflow Speed: light line only */}
-              {activeService.id === 'workflow-speed' && (
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs font-mono text-slate-300 flex items-center gap-2.5">
-                  <Zap className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                  <span>{PERSONAL_INFO.workflowNote}</span>
                 </div>
               )}
             </div>
@@ -172,10 +153,10 @@ export const ServicesSection: React.FC = () => {
             <div className="lg:col-span-4 p-6 rounded-2xl bg-black/40 border border-white/10 space-y-6">
               <div>
                 <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
-                  Equipment & Rig Specs
+                  Verified Tools &amp; Deliverables
                 </div>
                 <p className="text-xs text-slate-400 mt-1">
-                  Tools deployed directly on shoots, edits, and mixes:
+                  Hardware and software deployed directly in workflows:
                 </p>
               </div>
 
@@ -186,14 +167,14 @@ export const ServicesSection: React.FC = () => {
                     className="p-3 rounded-xl bg-white/[0.04] border border-white/5 flex items-center justify-between text-xs font-mono"
                   >
                     <span className="text-white font-medium">{spec}</span>
-                    <span className="text-cyan-400 text-[10px] font-bold">READY</span>
+                    <span className="text-cyan-400 text-[10px] font-bold">VERIFIED</span>
                   </div>
                 ))}
               </div>
 
               <div className="pt-4 border-t border-white/10">
                 <div className="text-[11px] font-mono text-slate-400">
-                  <span className="text-white font-semibold">Director & Producer Note:</span> Every project receives unified picture and sound execution. No handing off unpolished audio or uncorrected footage.
+                  <span className="text-white font-semibold">Workflow Discipline:</span> True, verified tools and specifications without speculative claims or unconfirmed software.
                 </div>
               </div>
             </div>
@@ -201,19 +182,19 @@ export const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Lightweight Banner: Systems I Rely On (one light line as requested) */}
+        {/* Intrepid Cloud infrastructure 2-sentence note */}
         <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-300">
           <div className="flex items-center gap-3">
-            <Zap className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-            <span>
-              <strong className="text-white">Workflow Speed Note:</strong> {PERSONAL_INFO.workflowNote}
-            </span>
+            <span className="text-cyan-400 font-bold uppercase tracking-wider">Intrepid Cloud:</span>
+            <span>{PERSONAL_INFO.cloudSummary}</span>
           </div>
           <a
-            href="#work"
+            href={PERSONAL_INFO.domains.cloud}
+            target="_blank"
+            rel="noreferrer"
             className="text-cyan-400 hover:text-cyan-300 underline flex items-center gap-1 whitespace-nowrap text-xs"
           >
-            <span>View The Reel</span>
+            <span>Visit Portal</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>

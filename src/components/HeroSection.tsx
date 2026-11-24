@@ -4,22 +4,19 @@ import { WorkItem } from '../types';
 import { 
   Play, 
   ArrowDown, 
-  Sparkles, 
   Video, 
-  Sliders, 
-  Radio, 
   Camera, 
   Mic2,
   Film,
   Disc,
-  CheckCircle2, 
   Mail,
   Copy,
   Check,
-  ShieldCheck,
   ChevronDown,
   ChevronUp,
-  Cpu
+  Cpu,
+  Wrench,
+  HelpCircle
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -66,7 +63,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Hero Content & Producer Positioning */}
+          {/* Left Column: Hero Content & Verified Positioning */}
           <div className="lg:col-span-7 flex flex-col space-y-6">
             
             {/* Status Pills */}
@@ -77,27 +74,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                 </span>
                 <span className="text-xs font-mono font-medium tracking-wide text-cyan-300">
-                  {PERSONAL_INFO.founderTitle}
+                  {PERSONAL_INFO.company} &bull; {PERSONAL_INFO.brand}
                 </span>
               </div>
 
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/80 border border-white/10 text-xs font-mono text-slate-300">
-                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-                <span>7x Certified Camera Systems</span>
+                <Camera className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Panasonic GH6 V-Log 4K &bull; ProRes RAW</span>
               </div>
             </div>
 
             {/* Display Title */}
             <div className="space-y-2">
-              <h1 className="font-display font-extrabold text-4xl sm:text-6xl xl:text-7xl tracking-tight text-white uppercase leading-[1.05]">
-                Bernard Mathis
-                <span className="block text-2xl sm:text-3xl font-mono font-bold tracking-normal pt-1 bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-300 bg-clip-text text-transparent">
-                  Bstar &bull; Dynamic Tech Enthusiast &amp; Creative Professional
-                </span>
-              </h1>
+              <div className="flex flex-wrap items-baseline gap-2">
+                <h1 className="font-display font-extrabold text-4xl sm:text-6xl xl:text-7xl tracking-tight text-white uppercase leading-[1.05]">
+                  Bernard Mathis
+                </h1>
+              </div>
+              <div className="block text-2xl sm:text-3xl font-mono font-bold tracking-normal pt-1 bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-300 bg-clip-text text-transparent">
+                Bstar &bull; {PERSONAL_INFO.headline}
+              </div>
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <span className="text-sm sm:text-base font-mono font-medium text-cyan-400">
-                  Virtual Production &bull; 16-Ch Live Sound &bull; Camera Systems &amp; Color
+                  Panasonic GH6 &bull; DaVinci Resolve Studio &bull; Recording Artist ({PERSONAL_INFO.trademarkNote})
                 </span>
                 <span className="text-slate-600 font-mono">/</span>
                 <span className="text-xs sm:text-sm font-mono text-slate-300">
@@ -116,9 +115,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                 <div className="space-y-3 pt-2 text-sm sm:text-base text-slate-200 leading-relaxed border-t border-white/10 animate-in fade-in duration-300">
                   <p>{PERSONAL_INFO.bioParagraphs[1]}</p>
                   <p>{PERSONAL_INFO.bioParagraphs[2]}</p>
-                  <p className="font-medium text-cyan-200/90 italic">
-                    "{PERSONAL_INFO.philosophy}"
-                  </p>
+                  <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs font-mono text-cyan-200">
+                    <strong className="text-white">Cloud Infrastructure:</strong> {PERSONAL_INFO.cloudSummary}
+                  </div>
                 </div>
               )}
 
@@ -135,52 +134,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                   </>
                 ) : (
                   <>
-                    <span>Read Complete Professional Bio</span>
+                    <span>Read Verified Profile Bio</span>
                     <ChevronDown className="w-3.5 h-3.5" />
                   </>
                 )}
               </button>
             </div>
 
-            {/* Core Triple-Threat / Quad Production Pillars */}
+            {/* Core Verified Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+              {/* 1. Camera Systems */}
               <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 backdrop-blur-md hover:border-cyan-500/40 transition-colors space-y-1">
                 <div className="flex items-center gap-2 text-cyan-400">
                   <Camera className="w-4 h-4" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Camera &amp; RAW</span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Camera Systems</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-snug">
-                  Certified in Blackmagic, Sony, Panasonic, ARRI, RED, Fuji &amp; Atomos. BRAW &amp; ACES pipelines.
+                  Panasonic Lumix GH6 (V-Log 4K 10-bit), ProRes RAW, DJI Spark aerial, and DJI Osmo Pocket (1st gen).
                 </p>
               </div>
 
+              {/* 2. Post & Color */}
               <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 backdrop-blur-md hover:border-teal-500/40 transition-colors space-y-1">
                 <div className="flex items-center gap-2 text-teal-400">
-                  <Cpu className="w-4 h-4" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Virtual Production</span>
+                  <Film className="w-4 h-4" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Editing &amp; Color</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-snug">
-                  Unreal Engine real-time sets, Blackmagic Ultimatte, DeckLink VR &amp; ATEM Mini Pro chroma keying.
+                  DaVinci Resolve Studio is primary tool. H.265 social deliverables and ProRes 422 HQ client masters.
                 </p>
               </div>
 
+              {/* 3. Custom Tools */}
               <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 backdrop-blur-md hover:border-indigo-500/40 transition-colors space-y-1">
                 <div className="flex items-center gap-2 text-indigo-400">
-                  <Mic2 className="w-4 h-4" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider">16-Ch Live Sound</span>
+                  <Wrench className="w-4 h-4" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Tools I've Built</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-snug">
-                  16-channel mixing board for concerts, nightclub AV diagnostics, instrument micing &amp; Pro Tools.
+                  LensLook, SafeZonesPro, TimeshiftPro, FC_GH6 false-color LUT, AutoPod Pro, and Vega assistant.
                 </p>
               </div>
 
+              {/* 4. Audio & Vocal */}
               <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/10 backdrop-blur-md hover:border-fuchsia-500/40 transition-colors space-y-1">
                 <div className="flex items-center gap-2 text-fuchsia-400">
-                  <Film className="w-4 h-4" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Post-Production</span>
+                  <Mic2 className="w-4 h-4" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">Music &amp; Vocal</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-snug">
-                  Avid Media Composer, DaVinci Resolve, Premiere Pro, After Effects &amp; DCP-o-matic theatrical mastering.
+                  Neumann TLM 102, PRE-73 Jr, Clarett 4Pre. Records at Pirate Rehearsal Studios in Silver Lake.
                 </p>
               </div>
             </div>
@@ -206,7 +209,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                 <div className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Video className="w-3 h-3" />
                 </div>
-                <span>Capabilities &amp; Certifications</span>
+                <span>Capabilities &amp; Workflow</span>
               </button>
 
               <button
@@ -214,7 +217,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                 id="hero-btn-copy-email"
                 onClick={handleCopyEmail}
                 className="px-4 py-3.5 rounded-xl bg-slate-900/70 border border-white/10 hover:border-cyan-500/30 text-xs font-mono text-slate-300 hover:text-white transition-all flex items-center gap-2"
-                title="Copy Bernard's Email"
+                title="Copy Email Address"
               >
                 {copiedEmail ? (
                   <>
@@ -231,7 +234,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
             </div>
           </div>
 
-          {/* Right Column: Studio Portrait with Camera & Audio HUD */}
+          {/* Right Column: Studio Portrait with HUD */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-md">
               
@@ -248,8 +251,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                 <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-2.5 bg-gradient-to-b from-black/80 to-transparent text-[11px] font-mono text-slate-300">
                   <div className="flex items-center gap-2">
                     <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-red-400 font-bold tracking-wider">LIVE PRODUCTION</span>
-                    <span className="text-slate-400">4K &bull; RAW &bull; VIRTUAL</span>
+                    <span className="text-red-400 font-bold tracking-wider">PRODUCTION &amp; POST</span>
+                    <span className="text-slate-400">GH6 &bull; V-LOG &bull; RESOLVE</span>
                   </div>
                   <div className="flex items-center gap-2 text-cyan-300">
                     <span>TC</span>
@@ -263,7 +266,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                 <div className="relative aspect-[4/5] overflow-hidden bg-slate-950">
                   <img
                     src={PERSONAL_INFO.heroImage}
-                    alt="Bernard Mathis (Bstar) - Technology & Media Production Professional"
+                    alt="Bernard Mathis (Bstar) - Filmmaker, Editor & Recording Artist"
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95 contrast-105"
                   />
 
@@ -281,7 +284,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                     type="button"
                     onClick={() => onPlayVideo(featuredReel)}
                     className="absolute inset-0 flex items-center justify-center group/btn focus:outline-none"
-                    aria-label="Play Featured Reel"
+                    aria-label="Play Featured Work"
                   >
                     <div className="w-16 h-16 rounded-full bg-cyan-500/85 backdrop-blur-md text-black flex items-center justify-center shadow-xl shadow-cyan-500/40 group-hover/btn:scale-110 group-hover/btn:bg-cyan-400 transition-all">
                       <Play className="w-7 h-7 fill-current ml-1" />
@@ -292,22 +295,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onPlayVideo, onScrollT
                 {/* HUD Producer Specs Strip */}
                 <div className="p-4 bg-[#0a0e19] border-t border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-cyan-400 font-semibold">TECHNICAL DEPTH</span>
-                    <span className="text-slate-400">Studio &bull; Live &bull; Post</span>
+                    <span className="text-cyan-400 font-semibold">VERIFIED PRODUCTION FOCUS</span>
+                    <span className="text-slate-400">Film &bull; Post &bull; Audio</span>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2 pt-1 text-[11px] font-mono text-slate-300 text-center">
                     <div className="bg-white/5 py-1 px-1.5 rounded border border-white/5">
                       <div className="text-[10px] text-slate-400">CAMERA</div>
-                      <div className="font-semibold text-white">7x Certified</div>
+                      <div className="font-semibold text-white">Lumix GH6</div>
                     </div>
                     <div className="bg-white/5 py-1 px-1.5 rounded border border-white/5">
-                      <div className="text-[10px] text-slate-400">LIVE AUDIO</div>
-                      <div className="font-semibold text-white">16-Ch Mixing</div>
+                      <div className="text-[10px] text-slate-400">POST TOOL</div>
+                      <div className="font-semibold text-white">Resolve Studio</div>
                     </div>
                     <div className="bg-white/5 py-1 px-1.5 rounded border border-white/5">
-                      <div className="text-[10px] text-slate-400">VIRTUAL</div>
-                      <div className="font-semibold text-white">Unreal &bull; ATEM</div>
+                      <div className="text-[10px] text-slate-400">VOCAL CHAIN</div>
+                      <div className="font-semibold text-white">TLM 102 &bull; Pre-73</div>
                     </div>
                   </div>
                 </div>
